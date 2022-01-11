@@ -1,7 +1,7 @@
 import { timeStamp } from "console";
-import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
+const mongoose = require("mongoose");
 const { createHmac } = await import("crypto");
 const { Schema } = mongoose;
 
