@@ -1,16 +1,21 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
-const DB_Name = "t-shirt";
+
 mongoose
-  .connect(`mongodb://localhost:27017/${DB_Name}`, {
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
   .then(() => {
     console.log("DB CONNECTED");
+  })
+  .catch(() => {
+    console.log("Connection to DB failed");
   });
 
 const port = 8000;
