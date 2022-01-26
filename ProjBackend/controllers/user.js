@@ -18,14 +18,3 @@ exports.getUser = (req, res) => {
   req.profile.encry_password = undefined;
   return res.json(req.profile);
 };
-
-exports.getAllUsers = (req, res) => {
-  User.find().exec((err, users) => {
-    if (err || !users) {
-      return res.status(400).json({
-        error: "No such User",
-      });
-    }
-    res.json(users);
-  });
-};
