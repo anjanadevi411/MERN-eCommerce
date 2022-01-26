@@ -13,6 +13,8 @@ exports.getUserById = (req, res, next, id) => {
 };
 
 exports.getUser = (req, res) => {
-  //get back here for password
+  // for frontend no need to show password, salt, createdAt ...
+  req.profile.salt = undefined;
+  req.profile.encry_password = undefined;
   return res.json(req.profile);
 };
