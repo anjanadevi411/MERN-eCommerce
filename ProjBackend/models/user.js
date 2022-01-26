@@ -1,9 +1,7 @@
-import { timeStamp } from "console";
-import { v4 as uuidv4 } from "uuid";
-
 const mongoose = require("mongoose");
-const { createHmac } = await import("crypto");
+const crypto = require("crypto");
 const { Schema } = mongoose;
+const uuidv4 = require("uuid/v4");
 
 const userSchema = new Schema(
   {
@@ -56,14 +54,15 @@ userSchema
     return this._password;
   });
 
-userSchema.method = {
+userSchema.methods = {
   authenticate: function (plainPassword) {
     return this.securePassword(plainPassword) === this.encry_password;
   },
   securePassword: function (plainPassword) {
-    if (!password) return "";
+    if (!plainPassword) return "";
     try {
-      return createHmac("sha256", this.salt)
+      return crypto
+        .createHmac("sha256", this.salt)
         .update(plainPassword)
         .digest("hex");
     } catch (error) {
