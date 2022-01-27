@@ -3,24 +3,24 @@ const { Schema } = mongoose;
 const { ObjectId } = mongoose.Schema;
 
 const ProductCartSchema = new Schema({
-    product:{
-        type: ObjectId,
-        ref: "Product",
-    },
-    name:{
-        type:String,
-    },
-    count:{
-        type: Number,
-    },
-    Price:{
-        type: Number,
-    }
-}),
+  product: {
+    type: ObjectId,
+    ref: "Product",
+  },
+  name: {
+    type: String,
+  },
+  count: {
+    type: Number,
+  },
+  Price: {
+    type: Number,
+  },
+});
 
-const productCart = mongoose.model("ProductCart",ProductCartSchema)
+const ProductCart = mongoose.model("ProductCart", ProductCartSchema);
 
-const orderSchema = new Schema(
+const OrderSchema = new Schema(
   {
     products: [ProductCartSchema],
     transcationId: {},
@@ -42,6 +42,6 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
-const order = mongoose.model("Order",orderSchema)
+const Order = mongoose.model("Order", OrderSchema);
 
-module.exports = {productCart, order};
+module.exports = { ProductCart, Order };

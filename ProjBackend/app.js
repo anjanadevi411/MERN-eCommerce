@@ -10,6 +10,7 @@ const app = express();
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
 
 //DB connection
 mongoose
@@ -36,6 +37,7 @@ const port = process.env.PORT || 8000;
 //My Routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 //Starting the Server
 app.listen(port, () => {
