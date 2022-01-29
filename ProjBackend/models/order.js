@@ -31,6 +31,11 @@ const OrderSchema = new Schema(
       type: String,
       maxlength: 2000,
     },
+    status: {
+      type: String,
+      default: "Recieved",
+      enum: ["cancelled", "delivered", "shipped", "processing", "Recieved"],
+    },
     updated: {
       type: Date,
     },
