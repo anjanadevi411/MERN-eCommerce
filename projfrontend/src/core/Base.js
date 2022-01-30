@@ -1,4 +1,5 @@
 import React from "react";
+import Navigation from "./Navigation";
 
 function Base({
   title = "My title",
@@ -8,6 +9,7 @@ function Base({
 }) {
   return (
     <div>
+      <Navigation />
       <div className="container-fluid">
         <div className="jumbotron bg-dark text-white text-center">
           <h2 className="display-4">{title}</h2>
