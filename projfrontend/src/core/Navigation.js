@@ -1,7 +1,9 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { Fragment } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signout, isAuthenticated } from "../auth/helper";
 
 function Navigation() {
+  let navigate = useNavigate();
   return (
     <div>
       <ul className="nav nav-tabs bg-dark">
@@ -49,39 +51,46 @@ function Navigation() {
             Admin Dashboard
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink
-            style={(isActive) => ({
-              color: isActive ? "green" : "blue",
-            })}
-            className="nav-link"
-            to={"/signup"}
-          >
-            Sign Up
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            style={(isActive) => ({
-              color: isActive ? "green" : "blue",
-            })}
-            className="nav-link"
-            to={"/signin"}
-          >
-            Sign In
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            style={(isActive) => ({
-              color: isActive ? "green" : "blue",
-            })}
-            className="nav-link"
-            to={"/signout"}
-          >
-            Sign Out
-          </NavLink>
-        </li>
+        {!isAuthenticated() && (
+          <Fragment>
+            <li className="nav-item">
+              <NavLink
+                style={(isActive) => ({
+                  color: isActive ? "green" : "blue",
+                })}
+                className="nav-link"
+                to={"/signup"}
+              >
+                Sign Up
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                style={(isActive) => ({
+                  color: isActive ? "green" : "blue",
+                })}
+                className="nav-link"
+                to={"/signin"}
+              >
+                Sign In
+              </NavLink>
+            </li>
+          </Fragment>
+        )}
+        {isAuthenticated() && (
+          <li className="nav-item">
+            <span
+              className="nav-link text-warning"
+              onClick={() => {
+                signout(() => {
+                  navigate.push("/");
+                });
+              }}
+            >
+              Signout
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );

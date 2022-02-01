@@ -41,6 +41,7 @@ export const authenticate = (data, next) => {
   }
 };
 
+//middleware signout... middleware injects a callback
 export const signout = (next) => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
