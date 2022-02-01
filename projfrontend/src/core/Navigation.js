@@ -83,7 +83,7 @@ function Navigation() {
               className="nav-link text-warning"
               onClick={() => {
                 signout(() => {
-                  navigate.push("/");
+                  navigate("/");
                 });
               }}
             >
