@@ -8,12 +8,12 @@ router.post(
   "/signup",
   [
     check("name")
-      .isLength({ min: 5 })
-      .withMessage("must be at least 5 chars long"),
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 chars long"),
     check("email").isEmail().withMessage("email is required"),
     check("password")
-      .isLength({ min: 5 })
-      .withMessage("must be at least 5 chars long"),
+      .isLength({ min: 3 })
+      .withMessage("Password must be at least 3 chars long"),
   ],
   signup
 );
@@ -24,8 +24,8 @@ router.post(
   [
     check("email").isEmail().withMessage("email is required"),
     check("password")
-      .isLength({ min: 5 })
-      .withMessage("must be at least 5 chars long"),
+      .isLength({ min: 3 })
+      .withMessage("Password must be at least 3 chars long"),
   ],
   signin
 );

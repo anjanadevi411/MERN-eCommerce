@@ -1,44 +1,86 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navigation() {
   return (
     <div>
       <ul className="nav nav-tabs bg-dark">
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/"}
+          >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/cart"}
+          >
             Cart
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/user/dashboard"}
+          >
             Dashboard
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/admin/dashboard"}
+          >
             Admin Dashboard
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/signup"}
+          >
             Sign Up
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/signin"}
+          >
             Sign In
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={"/"}>
+          <NavLink
+            style={(isActive) => ({
+              color: isActive ? "green" : "blue",
+            })}
+            className="nav-link"
+            to={"/signout"}
+          >
             Sign Out
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>

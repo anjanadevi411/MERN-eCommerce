@@ -17,10 +17,10 @@ function Base({
         </div>
         <div className={className}>{children}</div>
       </div>
-      <footer className="footer bg-dark mt-auto py-3">
+      <footer className="footer bg-dark mt-auto">
         <div className="container-fluid bg-success text-white text-center py-3">
-          <h4>If you have any query's. Please feel free to contact us</h4>
-          <button className="btn btn-warning btn-lg">Contact US</button>
+          <h6>If you have any query's. Please feel free to contact us</h6>
+          <button className="btn btn-warning btn-md">Contact Us</button>
         </div>
         <div className="container">
           <span className="text-muted">
