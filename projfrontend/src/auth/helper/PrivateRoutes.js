@@ -1,25 +1,10 @@
 import React from "react";
-import { Route, Redirect } from "react-router";
+import { Navigate } from "react-router";
 import { isAuthenticated } from "./index";
 
-function PrivateRoutes({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
-    />
-  );
+//this is the way how to do private routes in react router dom version6
+function PrivateRoutes({ component: Component }) {
+  return isAuthenticated() ? <Component /> : <Navigate to={"/signin"} />;
 }
 
 export default PrivateRoutes;
