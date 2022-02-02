@@ -29,28 +29,32 @@ function Navigation() {
             Cart
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink
-            style={(isActive) => ({
-              color: isActive ? "green" : "blue",
-            })}
-            className="nav-link"
-            to={"/user/dashboard"}
-          >
-            Dashboard
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            style={(isActive) => ({
-              color: isActive ? "green" : "blue",
-            })}
-            className="nav-link"
-            to={"/admin/dashboard"}
-          >
-            Admin Dashboard
-          </NavLink>
-        </li>
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <NavLink
+              style={(isActive) => ({
+                color: isActive ? "green" : "blue",
+              })}
+              className="nav-link"
+              to={"/user/dashboard"}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        )}
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <NavLink
+              style={(isActive) => ({
+                color: isActive ? "green" : "blue",
+              })}
+              className="nav-link"
+              to={"/admin/dashboard"}
+            >
+              Admin Dashboard
+            </NavLink>
+          </li>
+        )}
         {!isAuthenticated() && (
           <Fragment>
             <li className="nav-item">

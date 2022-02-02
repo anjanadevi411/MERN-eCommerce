@@ -7,6 +7,7 @@ import AdminRoutes from "./auth/helper/AdminRoutes";
 import PrivateRoutes from "./auth/helper/PrivateRoutes";
 import UserDashBoard from "./user/UserDashBoard";
 import AdminDashBoard from "./user/AdminDashBoard";
+import AddCategory from "./admin/AddCategory";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
       <Route
         path="/admin/dashboard"
         element={<AdminRoutes component={AdminDashBoard} />}
+      />
+      <Route
+        path="/admin/create/category"
+        element={<AdminRoutes component={AddCategory} />}
       />
       <Route
         path="/user/dashboard"
