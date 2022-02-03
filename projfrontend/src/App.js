@@ -8,6 +8,8 @@ import PrivateRoutes from "./auth/helper/PrivateRoutes";
 import UserDashBoard from "./user/UserDashBoard";
 import AdminDashBoard from "./user/AdminDashBoard";
 import AddCategory from "./admin/AddCategory";
+import ManageCategories from "./admin/ManageCategories";
+import AddProduct from "./admin/AddProduct";
 
 function App() {
   return (
@@ -20,13 +22,22 @@ function App() {
         path="/admin/dashboard"
         element={<AdminRoutes component={AdminDashBoard} />}
       />
+
+      <Route
+        path="/user/dashboard"
+        element={<PrivateRoutes component={UserDashBoard} />}
+      />
       <Route
         path="/admin/create/category"
         element={<AdminRoutes component={AddCategory} />}
       />
       <Route
-        path="/user/dashboard"
-        element={<PrivateRoutes component={UserDashBoard} />}
+        path="/admin/categories"
+        element={<AdminRoutes component={ManageCategories} />}
+      />
+      <Route
+        path="/admin/create/product"
+        element={<AdminRoutes component={AddProduct} />}
       />
     </Routes>
   );
