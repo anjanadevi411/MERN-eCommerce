@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
-import { getAllProducts } from "./helper/adminapicall";
+import { deleteAProduct, getAllProducts } from "./helper/adminapicall";
 
 function ManageProducts() {
   const [products, setProducts] = useState();
@@ -22,6 +22,17 @@ function ManageProducts() {
     return preload();
   }, []);
 
+  const deleteThisProduct = (productId) => {
+    deleteAProduct(productId, user._id, token).then((data) => {
+      console.log("data", data);
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        preload();
+      }
+    });
+  };
+
   return (
     <div>
       <Base title="Welcome admin" description="Manage products here">
@@ -33,28 +44,34 @@ function ManageProducts() {
           <div className="col-12">
             <h2 className="text-center text-white my-3">Total 3 products</h2>
 
-            {products.map((product, index) => {
-              return (
-                <div key={index} className="row text-center mb-2 ">
-                  <div className="col-4">
-                    <h3 className="text-white text-left">{product.name}</h3>
+            {products &&
+              products.map((product, index) => {
+                return (
+                  <div key={index} className="row text-center mb-2 ">
+                    <div className="col-4">
+                      <h3 className="text-white text-left">{product.name}</h3>
+                    </div>
+                    <div className="col-4">
+                      <Link
+                        className="btn btn-success"
+                        to={`/admin/product/update/productId`}
+                      >
+                        <span className="">Update</span>
+                      </Link>
+                    </div>
+                    <div className="col-4">
+                      <button
+                        onClick={() => {
+                          deleteThisProduct(product._id);
+                        }}
+                        className="btn btn-danger"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                  <div className="col-4">
-                    <Link
-                      className="btn btn-success"
-                      to={`/admin/product/update/productId`}
-                    >
-                      <span className="">Update</span>
-                    </Link>
-                  </div>
-                  <div className="col-4">
-                    <button onClick={() => {}} className="btn btn-danger">
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </Base>
