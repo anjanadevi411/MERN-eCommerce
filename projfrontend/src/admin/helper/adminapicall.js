@@ -13,41 +13,35 @@ export const createCategory = (userId, token, category) => {
     body: JSON.stringify(category),
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-//Get All Categories
 export const getAllCategories = () => {
-  fetch(`${API}/categories`, {
+  return fetch(`${API}/categories`, {
     method: "GET",
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 };
-
-//product calls
 
 //create a product
 export const createAProduct = (userId, token, product) => {
   return fetch(`${API}/product/create/${userId}`, {
     method: "POST",
     headers: {
-      ACCEPT: "application/json",
-      "Content-Type": "application/json",
+      Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: product,
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
@@ -56,11 +50,11 @@ export const createAProduct = (userId, token, product) => {
 
 //get all products
 export const getAllProducts = () => {
-  fetch(`${API}/products`, {
+  return fetch(`${API}/products`, {
     method: "GET",
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
@@ -69,11 +63,11 @@ export const getAllProducts = () => {
 
 //get a product
 export const getAProduct = (productId) => {
-  fetch(`${API}/product/${productId}`, {
+  return fetch(`${API}/product/${productId}`, {
     method: "GET",
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
@@ -92,7 +86,7 @@ export const updateAProduct = (productId, userId, token, product) => {
     body: product,
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);
@@ -110,7 +104,7 @@ export const deleteAProduct = (productId, userId, token) => {
     },
   })
     .then((response) => {
-      response.json();
+      return response.json();
     })
     .catch((err) => {
       console.log(err);

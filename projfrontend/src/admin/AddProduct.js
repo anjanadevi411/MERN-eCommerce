@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Base from "../core/Base";
-import { getAllCategories } from "./helper/adminapicall";
+import { createAProduct, getAllCategories } from "./helper/adminapicall";
 import { isAuthenticated } from "../auth/helper/index";
 
 function AddProduct() {
+  const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -24,7 +25,6 @@ function AddProduct() {
     description,
     price,
     stock,
-    photo,
     categories,
     category,
     loading,
@@ -34,26 +34,66 @@ function AddProduct() {
     formData,
   } = values;
 
+  const preload = () => {
+    getAllCategories().then((data) => {
+      //console.log(data);
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({ ...values, categories: data, formData: new FormData() });
+        //console.log("cate", categories);
+      }
+    });
+  };
+
   useEffect(() => {
-    const preload = () => {
-      getAllCategories().then((data) => {
-        console.log("data", data);
-        if (data.error) {
-          setValues({ ...values, error: data.error });
-        } else {
-          setValues({ ...values, categories: data, formData: new FormData() });
-          console.log("categories", categories);
-        }
-      });
-    };
+    return preload();
+  }, []);
 
-    return () => {
-      preload();
-    };
-  }, [categories, values]);
+  const handleChange = (name) => (event) => {
+    const value = name === "photo" ? event.target.files[0] : event.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value });
+  };
 
-  const handleChange = (item) => (event) => {};
-  const onSubmit = () => {};
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setValues({ ...values, error: "", loading: true });
+    createAProduct(user._id, token, formData).then((data) => {
+      //console.log("data", data);
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          description: "",
+          price: "",
+          photo: "",
+          stock: "",
+          loading: false,
+          createdProduct: data.name,
+        });
+      }
+    });
+  };
+
+  const successMsg = () => (
+    <div
+      className="alert alert-success mt-3"
+      style={{ display: createdProduct ? "" : "none" }}
+    >
+      <h4>{createdProduct} created successfully</h4>
+    </div>
+  );
+  const errorMsg = () => {
+    <div
+      className="alert alert-success mt-3"
+      style={{ display: error ? "" : "none" }}
+    >
+      <h4>Error in createing the product</h4>
+    </div>;
+  };
   const createProductForm = () => (
     <form>
       <span>Upload photo</span>
@@ -71,7 +111,7 @@ function AddProduct() {
       <div className="form-group">
         <input
           onChange={handleChange("name")}
-          name="photo"
+          name="name"
           className="form-control mb-3"
           placeholder="Name"
           value={name}
@@ -80,7 +120,7 @@ function AddProduct() {
       <div className="form-group">
         <textarea
           onChange={handleChange("description")}
-          name="photo"
+          name="description"
           className="form-control mb-3"
           placeholder="Description"
           value={description}
@@ -104,7 +144,7 @@ function AddProduct() {
           <option>Select</option>
           {categories &&
             categories.map((cate, index) => (
-              <option key={index} value={cate.id}>
+              <option key={index} value={cate._id}>
                 {cate.name}
               </option>
             ))}
@@ -112,10 +152,10 @@ function AddProduct() {
       </div>
       <div className="form-group">
         <input
-          onChange={handleChange("quantity")}
+          onChange={handleChange("stock")}
           type="number"
           className="form-control mb-3"
-          placeholder="Quantity"
+          placeholder="Stock"
           value={stock}
         />
       </div>
@@ -139,7 +179,11 @@ function AddProduct() {
         Admin Home
       </Link>
       <div className="row bg-dark text-white rounded">
-        <div className="col-md-8 offset-md-2">{createProductForm()}</div>
+        <div className="col-md-8 offset-md-2">
+          {successMsg()}
+          {errorMsg()}
+          {createProductForm()}
+        </div>
       </div>
     </Base>
   );

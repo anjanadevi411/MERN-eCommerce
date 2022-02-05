@@ -10,6 +10,7 @@ import AdminDashBoard from "./user/AdminDashBoard";
 import AddCategory from "./admin/AddCategory";
 import ManageCategories from "./admin/ManageCategories";
 import AddProduct from "./admin/AddProduct";
+import ManageProducts from "./admin/ManageProducts";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
       <Route
         path="/admin/create/product"
         element={<AdminRoutes component={AddProduct} />}
+      />
+      <Route
+        path="/admin/products"
+        element={<AdminRoutes component={ManageProducts} />}
       />
     </Routes>
   );
