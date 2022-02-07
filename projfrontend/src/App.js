@@ -11,8 +11,11 @@ import AddCategory from "./admin/AddCategory";
 import ManageCategories from "./admin/ManageCategories";
 import AddProduct from "./admin/AddProduct";
 import ManageProducts from "./admin/ManageProducts";
+import UpdateProduct from "./admin/UpdateProduct";
+import UpdateCategory from "./admin/UpdateCategory";
 
 function App() {
+  console.log("App");
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -23,7 +26,6 @@ function App() {
         path="/admin/dashboard"
         element={<AdminRoutes component={AdminDashBoard} />}
       />
-
       <Route
         path="/user/dashboard"
         element={<PrivateRoutes component={UserDashBoard} />}
@@ -43,6 +45,10 @@ function App() {
       <Route
         path="/admin/products"
         element={<AdminRoutes component={ManageProducts} />}
+      />
+      <Route
+        path="/admin/product/update/:productId"
+        element={<AdminRoutes component={UpdateProduct} />}
       />
     </Routes>
   );
