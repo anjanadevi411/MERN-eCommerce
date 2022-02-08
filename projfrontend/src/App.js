@@ -50,6 +50,10 @@ function App() {
         path="/admin/product/update/:productId"
         element={<AdminRoutes component={UpdateProduct} />}
       />
+      <Route
+        path="/admin/category/update/:categoryId"
+        element={<AdminRoutes component={UpdateCategory} />}
+      />
     </Routes>
   );
 }

@@ -30,6 +30,19 @@ export const getAllCategories = () => {
     .catch((err) => console.log(err));
 };
 
+//get a category
+export const getACategory = (categoryId) => {
+  return fetch(`${API}/category/${categoryId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 //update a category
 export const updateACategory = (categoryId, userId, token, category) => {
   return fetch(`${API}/category/${categoryId}/${userId}`, {
