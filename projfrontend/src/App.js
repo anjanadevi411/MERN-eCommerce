@@ -13,6 +13,7 @@ import AddProduct from "./admin/AddProduct";
 import ManageProducts from "./admin/ManageProducts";
 import UpdateProduct from "./admin/UpdateProduct";
 import UpdateCategory from "./admin/UpdateCategory";
+import Cart from "./core/Cart";
 
 function App() {
   console.log("App");
@@ -21,6 +22,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />} />
+      <Route path="/cart" element={<Cart />} />
       {/* private routes version 6 */}
       <Route
         path="/admin/dashboard"
