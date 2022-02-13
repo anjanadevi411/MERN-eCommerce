@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { signin, authenticate, isAuthenticated } from "../auth/helper";
 
@@ -36,15 +36,15 @@ const Signin = () => {
           });
         }
       })
-      .catch(console.log("signin request failed"));
+      .catch((error) => console.log("signin request failed"));
   };
 
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <p>redirect to admin</p>;
+        return <Navigate to={"/admin/dashboard"} />;
       } else {
-        return <p>redirect to user dashboard</p>;
+        return <Navigate to={"/user/dashboard"} />;
       }
     }
     if (isAuthenticated()) {

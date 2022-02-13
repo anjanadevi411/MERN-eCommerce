@@ -1,24 +1,13 @@
 import React from "react";
-import { Route, Redirect } from "react-router";
+import { Navigate } from "react-router";
 import { isAuthenticated } from "./index";
 
-function AdminRoutes({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ props }) =>
-        isAuthenticated() && isAuthenticated().user.role === 1 ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
-    />
+//this is the way how to do private routes in react router dom version6
+function AdminRoutes({ component: Component }) {
+  return isAuthenticated() && isAuthenticated().user.role === 1 ? (
+    <Component />
+  ) : (
+    <Navigate to={"/signin"} />
   );
 }
 

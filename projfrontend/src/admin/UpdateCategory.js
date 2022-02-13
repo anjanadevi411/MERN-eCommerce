@@ -1,20 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
 import { isAuthenticated } from "../auth/helper";
-import { Link } from "react-router-dom";
-import { createCategory } from "./helper/adminapicall";
+import { Link, useParams } from "react-router-dom";
+import { getACategory, updateACategory } from "./helper/adminapicall";
 
-function AddCategory() {
-  const [name, setName] = useState("");
+function UpdateCategory() {
+  //const params = useParams()
+  const { categoryId } = useParams();
+  const [value, setValue] = useState({ name: "" });
+  const { name } = value;
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const { user, token } = isAuthenticated();
 
-  const handleChange = (event) => {
-    setError("");
-    setName(event.target.value);
+  const preload = (categoryId) => {
+    getACategory(categoryId).then((data) => {
+      console.log("cate data", data.name);
+      if (data?.error) {
+        setValue({ ...value, error: data.error });
+      } else {
+        setValue({
+          ...value,
+          name: data.name,
+        });
+      }
+    });
   };
+
+  useEffect(() => {
+    return preload(categoryId); //if destructured at the top
+  }, []);
+
+  const handleChange = (item) => (event) => {
+    const value = event.target.value;
+    console.log("value", value);
+    setError("");
+    setValue({ ...value, [item]: value });
+  };
+
+  // const handleChange = (event) => {
+  //   setError("");
+  //   setValue(event.target.value);
+  // };
 
   const successMsg = () => {
     if (success) {
@@ -34,14 +62,14 @@ function AddCategory() {
     setSuccess(false);
 
     //backend request fired
-    createCategory(user._id, token, { name })
+    updateACategory(categoryId, user._id, token, value)
       .then((data) => {
         if (data?.error) {
           setError(true);
         } else {
           setError("");
           setSuccess(true);
-          setName("");
+          setValue({ ...value, name: "" });
           console.log("success");
         }
       })
@@ -52,17 +80,17 @@ function AddCategory() {
     return (
       <form>
         <div className="form-group">
-          <label className="lead">Enter the Category</label>
+          <label className="lead">Update the Category</label>
           <input
             className="form-control my-3"
             autoFocus
             placeholder="For Ex. Summer"
             type="text"
-            onChange={handleChange}
+            onChange={handleChange("name")}
             value={name}
           />
           <button onClick={onSubmit} className="btn btn-outline-info mb-2">
-            Create Category
+            Update Category
           </button>
 
           <Link
@@ -77,8 +105,8 @@ function AddCategory() {
   };
   return (
     <Base
-      title="Add Category"
-      description="Adding new category for T-shirts"
+      title="Update Category"
+      description="Updating the existing category for T-shirts"
       className="container bg-info p-4"
     >
       <div className="row bg-white rounded">
@@ -92,4 +120,4 @@ function AddCategory() {
   );
 }
 
-export default AddCategory;
+export default UpdateCategory;
