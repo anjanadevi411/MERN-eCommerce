@@ -43,6 +43,7 @@ exports.getAllCategory = (req, res) => {
 exports.updateCategory = (req, res) => {
   const category = req.category; //it is extracting or populating from the parameter (coming from middleware)
   category.name = req.body.name;
+
   category.save((err, updatedCategory) => {
     if (err) {
       res.status(400).json({
